@@ -1,0 +1,48 @@
+{
+  "name": "@nigelotoole/data-live",
+  "homepage": "https://nigelotoole.github.io/data-live/",
+  "author": "Nigel O Toole <pure@purestructure.com> (http://www.purestructure.com)",
+  "description": "Share a URL with Web Share, copy to clipboard or to social media",
+  "keywords": [
+    "share",
+    "webshare",
+    "javascript",
+    "social"
+  ],
+  "version": "1.2.0",
+  "main": "src/scripts/data-live.js",
+  "license": "MIT",
+  "engines": {
+    "node": ">=4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NigelOToole/data-live.git"
+  },
+  "bugs": {
+    "url": "https://github.com/NigelOToole/data-live/issues"
+  },
+  "browserslist": [
+    "defaults"
+  ],
+  "devDependencies": {
+    "@11ty/eleventy-dev-server": "^2.0.4",
+    "concurrently": "^8.2.1",
+    "cross-env": "^7.0.3",
+    "postcss": "^8.4.31",
+    "postcss-cli": "^10.1.0",
+    "postcss-custom-media": "^10.0.2",
+    "postcss-import": "^15.1.0",
+    "postcss-preset-env": "^9.1.4",
+    "rimraf": "^5.0.5"
+  },
+  "scripts": {
+    "clean": "rimraf src/**/*.map",
+    "dev": "cross-env NODE_ENV=development && concurrently \"npm:dev:*\"",
+    "dev:server": "npx @11ty/eleventy-dev-server --dir=src",
+    "dev:styles": "postcss src/styles/site/main.css --dir src/styles --watch",
+    "build": "npm run clean && cross-env NODE_ENV=production concurrently \"npm:build:*\"",
+    "build:styles": "postcss src/styles/site/main.css --dir src/styles",
+    "publish": "npm run build && npm publish --access public"
+  }
+}

@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Data Live - Simple data reactivity for DOM elements</title>
+    <meta name="description" content="Native Web Share API is used if available, can copy link to clipboard and share directly to social platforms.">
+
+    <meta property="og:title" content="Data Live"> 
+    <meta property="og:description" content="Simple data reactivity for DOM elements">
+    <meta property="og:site_name" content="Data Live">
+    <meta property="og:url" content="https://nigelotoole.github.io/data-live/">
+    <meta property="og:image" content="https://nigelotoole.github.io/data-live/images/data-live-social.png">
+    <meta property="og:image:alt" content="Data Live">
+    <meta name="twitter:card" content="summary_large_image">
+  
+    <link rel="icon" type="image/png" href="/favicon-48x48.png" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- <link rel="stylesheet" href="styles/data-live.css"> -->
+  </head>
+
+  <body>
+
+    <header class="header fullwidth space--sm">
+      <div class="container">
+
+        <h1 class="logo-text">Data Live</h1> 
+
+        <nav class="nav header-nav">
+          <a href="https://github.com/NigelOToole/data-live/archive/master.zip" class="btn btn--green btn--ghost"><span>Download</span></a>
+          <a href="https://github.com/NigelOToole/data-live" class="btn btn--green btn--ghost"><span>GitHub <svg class="icon" aria-hidden="true" viewbox="0 0 24 24"><path d="M7 7h8.586L5.293 17.293l1.414 1.414L17 8.414V17h2V5H7v2z"/></svg></span></a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="main">
+
+      <section class="fullwidth intro">
+        <div class="container content flow">
+
+          <div class="heading page-intro">
+            <h2 class="page-heading">Simple data reactivity for DOM elements</h2>
+
+            <img src="images/data-live-logo.svg" class="page-intro-img" width="80" height="80" alt="Data Live logo">
+          </div>
+
+          <p>Automatically update an elements text when data is updated. It is not intended as a replacement for a UI library but a small utility for vanilla JS apps.</p>
+
+          <h3>Features</h3> 
+          <ul class="columns-sm-2">
+            <li>Automatically create reactivity on data-live elements</li>
+            <li>Element text is updated when the data is updated</li>
+            <li>Supports complex data i.e. Arrays and Objects</li>
+            <li>Templates can be used for presentation</li>
+          </ul>
+          
+        </div>
+      </section>
+
+
+      <section class="fullwidth demos">
+        <div class="container content flow">
+
+          <h2>Examples</h2>
+
+          <section class="demo flow">
+
+            <h3>Text</h3>
+            <div data-live="text">Text</div> 
+            <button class="btn demo-btn"><span>Update</span></button>
+
+            <h3>Text - Input</h3>
+            <p>Your text: <span data-live='input-text'></p>
+            <input class="input-text" type="text" placeholder="Type something" />
+      
+            <h3>Number - Countdown</h3>
+            <div class="input-number" data-live="seconds">3600</div>
+      
+            <h3>Array</h3>
+            <div class="users"></div>
+            <button class="btn demo-btn"><span>Update</span></button>
+
+            <h3>Array item</h3>
+            <div class="user-zero"></div>
+      
+            <h3>Object</h3>
+            <div class="user"></div>
+            <button class="btn demo-btn"><span>Update</span></button>
+
+          </section>
+
+        </div>
+      </section>
+
+
+      <section id="docs" class="fullwidth docs">
+        <div class="container content flow">
+
+          <h2 id="docs-installation">Installation</h2>
+
+<pre><code class="scroll-shadow-inline" tabindex="0">$ npm install @nigelotoole/data-live --save-dev</code></pre>
+
+
+          <h2 id="docs-usage">Usage</h2>
+
+          <p>Import or add the JS into your project, add the elements to your HTML and initialize the plugin if needed.</p>
+
+
+          <h3 id="docs-javascript">JavaScript</h3>
+
+<pre><code class="scroll-shadow-inline" tabindex="0">import { component, store, effect, get, set } from 'data-live.js';</code></pre>  
+
+
+          <h3>Simple text update</h3>
+          <p>Add a data-live attribute to an element and you can update its value with the set method.</p>
+<pre><code class="scroll-shadow-inline" tabindex="0">&lt;div data-live="text"&gt;Text&lt;/div&gt; </code></pre>       
+
+<pre><code class="scroll-shadow-inline" tabindex="0">// Update text
+set('text', 'Update Text');
+</code></pre>   
+
+          <h3>Complex data</h3>
+          <p>Get data, create a template for data presentation, create a store then update the data in the store. The example element has a class of 'users' which matches the store name but you can also pass a selector e.g. component(dataArray, 'users', usersTemplate, '.users-class').</p>
+<pre><code class="scroll-shadow-inline" tabindex="0">&lt;div class="users"&gt;&lt;/div&gt; </code></pre>       
+
+<pre><code class="scroll-shadow-inline" tabindex="0">// Data
+let dataArray = [...]
+
+// Setup component
+let usersTemplate = (data) => {
+  return `
+  &lt;ul&gt;
+      ${ data.map((item) => {
+        return `&lt;li&gt;
+          ${ item['firstname']} - ${item['address']['city'] }&lt;br&gt;
+          ${ item['interests'] ? item['interests'].map((item) => item.name).join(', ') : '' }
+        &lt;/li&gt;`;
+      }).join('')}
+  &lt;/ul&gt;`;
+}
+
+let usersStore = component(dataArray, 'users', usersTemplate);
+
+// Update data
+usersStore[0]['firstname'] = `${usersStore[0]['firstname']} updated`;
+</code></pre>   
+
+<p>To use data in an already crated store you can with duplicate the element e.g. &lt;div class="users"&gt;&lt;/div&gt;. If you need to present the data differently you can add an effect to the store.</p>
+
+<pre><code class="scroll-shadow-inline" tabindex="0">let userZeroTemplate = (data) => {
+  data = data[0];
+  return `${ data['firstname']}`;
+}
+
+effect(usersStore, 'users', userZeroTemplate, '.user-zero');
+</code></pre>
+
+
+
+        <h2 id="docs-compatibility">Compatibility</h2>
+        <p>Supports all modern browsers at the time of release.</p>
+
+
+        <h2 id="docs-demo-site">Demo site</h2>
+        <p>Clone the repo from Github and run the commands below.</p>
+
+<pre><code class="scroll-shadow-inline" tabindex="0">$ npm install
+$ npm run dev
+</code></pre>
+
+          <h3 id="docs-references">References</h3>
+          <p>
+            <a href="https://gomakethings.com/simple-reactive-data-stores-with-vanilla-javascript-and-proxies/">Simple reactive data stores with vanilla JavaScript and Proxies</a>, <a href="https://gomakethings.com/a-primer-on-javascript-proxies/">A primer on JavaScript Proxies</a> and <a href="https://reefjs.com/">Reef JS</a> by Chris Ferdinandi.<br>
+            <a href="https://medium.com/@Mikepicker/unravel-reactivity-in-16-lines-of-vanilla-js-af13b185a733">Unravel Reactivity in 16 lines of Vanilla JS</a> by Michele Rullo.
+          </p>
+
+        </div>
+      </section>
+
+    </main>
+
+
+    <footer class="fullwidth space--sm footer">
+      <div class="container content">
+        <div class="group share">
+          <h4 class="share-title">Share this</h4>
+
+          <share-url text-selector="span" maintain-size="true">
+            <button class="btn btn--icon-multi">
+              <span>Share link</span> 
+              <svg class="icon" aria-hidden="true" viewbox="0 0 24 24"><path d="m3.293 11.293 1.414 1.414L11 6.414V20h2V6.414l6.293 6.293 1.414-1.414L12 2.586l-8.707 8.707z"/></svg>
+              <svg class="icon" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="square" stroke-linejoin="arcs"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" fill="none" /><path d="M22 4 12 14.01l-3-3" fill="none"/></svg>
+            </button>
+          </share-url>
+          
+          <share-url action="clipboard" text-success="Copied" text-selector="span" maintain-size="true">
+            <button class="btn btn--icon-multi share-url">
+              <span>Copy link</span> 
+              <svg class="icon" viewbox="0 0 24 24"><rect x="8" y="3" width="13" height="13" rx="0" stroke-width="2" stroke-linecap="square" stroke-linejoin="arcs" fill="none"></rect><path d="M4 7v12c0 .6.4 1 1 1h12" stroke-width="2" stroke-linecap="square" stroke-linejoin="arcs" fill="none"></path></svg>
+              <svg class="icon" aria-hidden="true" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="square" stroke-linejoin="arcs"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" fill="none" /><path d="M22 4 12 14.01l-3-3" fill="none"/></svg>
+            </button>
+          </share-url>
+
+        </div>
+
+        <nav class="nav footer-nav">
+          <a href="http://www.purestructure.com/nigelotoole" rel="author">Made by Nigel O Toole</a>
+          <a href="https://github.com/nigelotoole" rel="external">GitHub</a>
+          <a data-encode="bWFpbHRvOnB1cmVAcHVyZXN0cnVjdHVyZS5jb20" data-encode-attribute="href" class="encode">Email</a>
+          <a href="http://www.purestructure.com" rel="external" class="w-100">PURE STRUCTURE</a>
+        </nav>
+      </div>
+    </footer>
+
+
+    <script src="scripts/share-url-wc.js" type="module"></script>
+    <script src="scripts/main.js" type="module"></script>
+  </body>
+</html>
