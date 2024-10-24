@@ -1,7 +1,7 @@
-# Davt Live
-### Share a URL with Web Share, copy to clipboard or to a social platform
+# Data Live
+### Simple data reactivity for DOM elements
 
-Native Web Share API is used if available, can copy link to clipboard and share directly to social media.
+Automatically update an elements text when data is updated. Supports complex data and templates for presentation.
 
 ### [Demo and documentation](http://nigelotoole.github.io/data-live/)
 

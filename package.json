@@ -2,14 +2,14 @@
   "name": "@nigelotoole/data-live",
   "homepage": "https://nigelotoole.github.io/data-live/",
   "author": "Nigel O Toole <pure@purestructure.com> (http://www.purestructure.com)",
-  "description": "Share a URL with Web Share, copy to clipboard or to social media",
+  "description": "Simple data reactivity for DOM elements",
   "keywords": [
-    "share",
-    "webshare",
+    "reactivity",
+    "proxy",
     "javascript",
     "social"
   ],
-  "version": "1.2.0",
+  "version": "1.0.0",
   "main": "src/scripts/data-live.js",
   "license": "MIT",
   "engines": {
