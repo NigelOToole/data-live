@@ -6,8 +6,7 @@
   "keywords": [
     "reactivity",
     "proxy",
-    "javascript",
-    "social"
+    "javascript"
   ],
   "version": "1.0.0",
   "main": "src/scripts/data-live.js",
