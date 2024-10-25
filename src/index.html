@@ -161,6 +161,163 @@ effect(usersStore, 'users', userZeroTemplate, '.user-zero');
 </code></pre>
 
 
+        <h3 id="methods">Methods</h3>
+
+        <h4><strong>get:</strong> Gets a value from the store.</h4>
+
+        <div class="table-outer scroll-shadow-inline" tabindex="0">
+        <table class="table">
+          <tr>
+            <th>Property</th>
+            <th>Default</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td><code>key</code></td>
+            <td></td>
+            <td>String</td>
+            <td>Property key to get.</td>
+          </tr>
+          <tr>
+            <td><code>store</code></td>
+            <td>window</td>
+            <td>String</td>
+            <td>Name of the store.</td>
+          </tr>
+        </table>
+        </div>
+
+        <h4><strong>set:</strong> Sets a value in the store.</h4>
+
+        <div class="table-outer scroll-shadow-inline" tabindex="0">
+        <table class="table">
+          <tr>
+            <th>Property</th>
+            <th>Default</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td><code>key</code></td>
+            <td></td>
+            <td>String</td>
+            <td>Property key to set.</td>
+          </tr>
+          <tr>
+            <td><code>value</code></td>
+            <td></td>
+            <td>String</td>
+            <td>Property value to set.</td>
+          </tr>
+          <tr>
+            <td><code>store</code></td>
+            <td>window</td>
+            <td>String</td>
+            <td>Name of the store.</td>
+          </tr>
+        </table>
+        </div>
+
+        <h4><strong>component:</strong> Creates a store and the effect of the store.</h4>
+
+        <div class="table-outer scroll-shadow-inline" tabindex="0">
+        <table class="table">
+          <tr>
+            <th>Property</th>
+            <th>Default</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td><code>data</code></td>
+            <td></td>
+            <td>String || Array || Object</td>
+            <td>Data for the store.</td>
+          </tr>
+          <tr>
+            <td><code>name</code></td>
+            <td></td>
+            <td>String</td>
+            <td>Name of the store.</td>
+          </tr>
+          <tr>
+            <td><code>template</code></td>
+            <td></td>
+            <td>String</td>
+            <td>Template for presentation of the data.</td>
+          </tr>
+          <tr>
+            <td><code>selector</code></td>
+            <td>`.${name}`</td>
+            <td>String</td>
+            <td>Element to output the data.</td>
+          </tr>
+        </table>
+        </div>
+
+        <h4><strong>effect:</strong> Creates the effect of the store, i.e. updating the element when the data changes.</h4>
+
+        <div class="table-outer scroll-shadow-inline" tabindex="0">
+        <table class="table">
+          <tr>
+            <th>Property</th>
+            <th>Default</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td><code>data</code></td>
+            <td></td>
+            <td>String || Array || Object</td>
+            <td>Data for the store.</td>
+          </tr>
+          <tr>
+            <td><code>name</code></td>
+            <td></td>
+            <td>String</td>
+            <td>Name of the store.</td>
+          </tr>
+          <tr>
+            <td><code>template</code></td>
+            <td></td>
+            <td>String</td>
+            <td>Template for presentation of the data.</td>
+          </tr>
+          <tr>
+            <td><code>selector</code></td>
+            <td></td>
+            <td>String</td>
+            <td>Element to output the data.</td>
+          </tr>
+        </table>
+        </div>
+
+        <h4><strong>store:</strong> Creates a store i.e. a proxy for the data.</h4>
+
+        <div class="table-outer scroll-shadow-inline" tabindex="0">
+        <table class="table">
+          <tr>
+            <th>Property</th>
+            <th>Default</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td><code>data</code></td>
+            <td>{}</td>
+            <td>Object</td>
+            <td>Data for the store.</td>
+          </tr>
+          <tr>
+            <td><code>name</code></td>
+            <td>store</td>
+            <td>String</td>
+            <td>Name of the store.</td>
+          </tr>
+        </table>
+        </div>
+
 
         <h2 id="docs-compatibility">Compatibility</h2>
         <p>Supports all modern browsers at the time of release.</p>
