@@ -80,10 +80,12 @@
       
             <h3>Number - Countdown</h3>
             <div class="input-number" data-live="seconds">3600</div>
-      
+            <button class="btn demo-btn"><span>Reset</span></button>
+
             <h3>Array</h3>
             <div class="users"></div>
             <button class="btn demo-btn"><span>Update</span></button>
+            <button class="btn demo-btn"><span>Add</span></button>
 
             <h3>Array item</h3>
             <div class="user-zero"></div>
@@ -105,23 +107,20 @@
 
 <pre><code class="scroll-shadow-inline" tabindex="0">$ npm install @nigelotoole/data-live --save-dev</code></pre>
 
-
           <h2 id="docs-usage">Usage</h2>
 
-          <p>Import or add the JS into your project, add the elements to your HTML and initialize the plugin if needed.</p>
+          <h3>Simple</h3>
 
-
-          <h3 id="docs-javascript">JavaScript</h3>
+          <p>Add the script to the page or import the functions needed. Add a data-live attribute to an element and then update its value as needed.</p>
 
 <pre><code class="scroll-shadow-inline" tabindex="0">import { component, store, effect, get, set } from 'data-live.js';</code></pre>  
 
-
-          <h3>Simple text update</h3>
-          <p>Add a data-live attribute to an element and you can update its value with the set method.</p>
 <pre><code class="scroll-shadow-inline" tabindex="0">&lt;div data-live="text"&gt;Text&lt;/div&gt; </code></pre>       
 
 <pre><code class="scroll-shadow-inline" tabindex="0">// Update text
 set('text', 'Update Text');
+// This is the same as the above if you dont want to import the set method
+// window['text']['text'] = 'Update Text';
 </code></pre>   
 
           <h3>Complex data</h3>
@@ -144,10 +143,10 @@ let usersTemplate = (data) => {
   &lt;/ul&gt;`;
 }
 
-let usersStore = component(dataArray, 'users', usersTemplate);
+let usersComponent = component(dataArray, 'users', usersTemplate);
 
 // Update data
-usersStore[0]['firstname'] = `${usersStore[0]['firstname']} updated`;
+usersComponent[0]['firstname'] = `${usersComponent[0]['firstname']} updated`;
 </code></pre>   
 
 <p>To use data in an already crated store you can with duplicate the element e.g. &lt;div class="users"&gt;&lt;/div&gt;. If you need to present the data differently you can add an effect to the store.</p>
@@ -157,7 +156,7 @@ usersStore[0]['firstname'] = `${usersStore[0]['firstname']} updated`;
   return `${ data['firstname']}`;
 }
 
-effect(usersStore, 'users', userZeroTemplate, '.user-zero');
+effect(usersComponent, 'users', userZeroTemplate, '.user-zero');
 </code></pre>
 
 
@@ -376,6 +375,7 @@ $ npm run dev
 
 
     <script src="scripts/share-url-wc.js" type="module"></script>
+    <!-- <script src="scripts/data-live.js" type="module"></script> -->
     <script src="scripts/main.js" type="module"></script>
   </body>
 </html>

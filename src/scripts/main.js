@@ -6,82 +6,66 @@ window.addEventListener('DOMContentLoaded', (event) => {
   let dataArray = [
     {
       "id": 1,
-      "firstname": "John",
-      "lastname": "Doe",
-      "email": "johndoe@example.com",
+      "firstname": "Bob",
+      "lastname": "Belcher",
+      "email": "bob@example.com",
       "phone": "(555) 555-1234",
       "address": {
-        "street": "123 Main Street",
-        "suite": "Apt. 4",
-        "city": "Anytown",
-        "zipcode": "12345-6789",
-        "geo": {
-          "lat": "42.1234",
-          "lng": "-71.2345"
-        }
+        "street": "123 Ocean Avenue",
+        "suite": "Apt. 1",
+        "city": "Seymour's Bay",
+        "zipcode": "12345-6789"
       },
       "interests": [
-        { "name": "Interest 1" },
-        { "name": "Interest 2" },
-        { "name": "Interest 3" }
+        { "name": "Cooking" },
+        { "name": "Appliances" },
+        { "name": "Foreign films" }
       ],
     },
     {
       "id": 2,
-      "firstname": "Jane",
-      "lastname": "Smith",
-      "email": "janesmith@example.com",
-      "phone": "(555) 555-5678",
+      "firstname": "Linda",
+      "lastname": "Belcher",
+      "email": "linda@example.com",
+      "phone": "(555) 555-1234",
       "address": {
-        "street": "456 Oak Street",
-        "suite": "Suite 200",
-        "city": "Anytown",
-        "zipcode": "12345-6789",
-        "geo": {
-          "lat": "42.3456",
-          "lng": "-71.6789"
-        }
+        "street": "123 Ocean Avenue",
+        "suite": "Apt. 1",
+        "city": "Seymour's Bay",
+        "zipcode": "12345-6789"
       }
     },
     {
       "id": 3,
-      "firstname": "Bob",
-      "lastname": "Johnson",
-      "email": "bobjohnson@example.com",
-      "phone": "(555) 555-9012",
+      "firstname": "Tina",
+      "lastname": "Belcher",
+      "email": "tina@example.com",
+      "phone": "(555) 555-1234",
       "address": {
-        "street": "789 Elm Street",
-        "suite": "Apt. 100",
-        "city": "Anytown",
-        "zipcode": "12345-6789",
-        "geo": {
-          "lat": "42.5678",
-          "lng": "-71.1234"
-        }
+        "street": "123 Ocean Avenue",
+        "suite": "Apt. 1",
+        "city": "Seymour's Bay",
+        "zipcode": "12345-6789"
       }
     }
   ]
   
   let dataObject = {
     "id": 1,
-    "firstname": "John",
-    "lastname": "Doe",
-    "email": "johndoe@example.com",
+    "firstname": "Bob",
+    "lastname": "Belcher",
+    "email": "bob@example.com",
     "phone": "(555) 555-1234",
     "address": {
-      "street": "123 Main Street",
-      "suite": "Apt. 4",
-      "city": "Anytown",
-      "zipcode": "12345-6789",
-      "geo": {
-        "lat": "42.1234",
-        "lng": "-71.2345"
-      }
+      "street": "123 Ocean Avenue",
+      "suite": "Apt. 1",
+      "city": "Seymour's Bay",
+      "zipcode": "12345-6789"
     },
     "interests": [
-      { "name": "Interest 1" },
-      { "name": "Interest 2" },
-      { "name": "Interest 3" }
+      { "name": "Cooking" },
+      { "name": "Appliances" },
+      { "name": "Foreign films" }
     ]
   }
 
@@ -91,7 +75,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
   // Text
   document.querySelector('[data-live="text"] + .demo-btn').addEventListener('click', () => {
     set('text', 'Update Text'); 
-    // This is the same as the above if you dont want to import set method
+    // This is the same as the above if you dont want to import the set method
     // window['text']['text'] = 'Update Text';
   })
 
@@ -118,6 +102,10 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
   let updateNumberInterval = setInterval(updateNumber, 1000);
 
+  document.querySelector('[data-live="seconds"] + .demo-btn').addEventListener('click', () => {
+    set('seconds', 3600);
+  })
+
 
   // Array
   let usersTemplate = (data) => {
@@ -132,14 +120,17 @@ window.addEventListener('DOMContentLoaded', (event) => {
     </ul>`;
   }
 
-  let usersStore = component(dataArray, 'users', usersTemplate);
+  let usersComponent = component(dataArray, 'users', usersTemplate);
 
   document.querySelector('.users + .demo-btn').addEventListener('click', () => {
-    usersStore[0]['firstname'] = `${usersStore[0]['firstname']} updated`;
-    usersStore[0]['address']['city'] = 'New Town'
-    usersStore[0]['interests'][0]['name'] = 'New interest 1'
-  })
+    usersComponent[0]['firstname'] = `${usersComponent[0]['firstname']} updated`;
+    usersComponent[0]['interests'][0]['name'] = 'Cooking burgers';
+  }) 
 
+  document.querySelector('.users + .demo-btn + .demo-btn').addEventListener('click', () => {
+    usersComponent.push({"firstname": "Gene", "address": {"city": "Seymour's Bay"}});
+    usersComponent.push({"firstname": "Louise", "address": {"city": "Seymour's Bay"}});
+  })
 
 
   // Array item
@@ -149,8 +140,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     return `${ data['firstname']}`;
   }
 
-  effect(usersStore, 'users', userZeroTemplate, '.user-zero');
-
+  effect(usersComponent, 'users', userZeroTemplate, '.user-zero');
 
 
   // Object
@@ -161,14 +151,11 @@ window.addEventListener('DOMContentLoaded', (event) => {
     `;
   }
 
-  let userStore = component(dataObject, 'user', userTemplate);
+  let userComponent = component(dataObject, 'user', userTemplate);
 
   document.querySelector('.user + .demo-btn').addEventListener('click', () => {
-    userStore['firstname'] = 'John updated'
-    userStore['address']['city'] = 'New Town'
-    userStore['interests'][0]['name'] = 'New interest 1'
+    userComponent['firstname'] = 'Bob updated'
   });
-
 
 
 
