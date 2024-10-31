@@ -3,7 +3,8 @@
 
 Automatically update an elements text when data is updated. Supports complex data and templates for presentation.
 
-### [Demo and documentation](http://nigelotoole.github.io/data-live/)
+### [Demos and documentation](http://nigelotoole.github.io/data-live/)
+### [Interactive demos on Codepen](https://codepen.io/nigelotoole/pen/qBeopqe)
 
 ---
 ## Quick start
