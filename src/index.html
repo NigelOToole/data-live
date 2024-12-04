@@ -49,7 +49,7 @@
             <img src="images/data-live-logo.svg" class="page-intro-img" width="80" height="80" alt="Data Live logo">
           </div>
 
-          <p>Automatically update an elements text when data is updated. It is not intended as a replacement for a UI library but a small utility for vanilla JS apps.</p>
+          <p>Automatically update an elements text when data is updated. Supports complex data and templates for presentation. Intended as a utility for vanilla JS apps not as a replacement for a UI library.</p>
 
           <h3>Features</h3> 
           <ul class="columns-sm-2">
@@ -69,33 +69,43 @@
           <h2>Demos</h2>
           <p>Interactive demos on <a href="https://codepen.io/nigelotoole/pen/qBeopqe" target="_blank">Codepen</a>.</p>
 
-          <section class="demo flow">
+          
+          <h3>Text</h3>
+          <div data-live="text">Text</div> 
+          <button class="btn demo-btn"><span>Update</span></button>
 
-            <h3>Text</h3>
-            <div data-live="text">Text</div> 
-            <button class="btn demo-btn"><span>Update</span></button>
+          
+          <h3>Text from input</h3>
+          <p>Your text: <span data-live='input-text'></p>
+          <input class="input-text" type="text" placeholder="Type something" />
+    
 
-            <h3>Text - Input</h3>
-            <p>Your text: <span data-live='input-text'></p>
-            <input class="input-text" type="text" placeholder="Type something" />
-      
-            <h3>Number - Countdown</h3>
-            <div class="input-number" data-live="seconds">3600</div>
-            <button class="btn demo-btn"><span>Reset</span></button>
+          <h3>Number countdown</h3>
+          <div class="input-number" data-live="seconds">3600</div>
+          <button class="btn demo-btn"><span>Reset</span></button>
 
-            <h3>Array</h3>
-            <div class="users"></div>
-            <button class="btn demo-btn"><span>Update</span></button>
-            <button class="btn demo-btn"><span>Add</span></button>
 
-            <h3>Array item</h3>
-            <div class="user-zero"></div>
-      
-            <h3>Object</h3>
-            <div class="user"></div>
-            <button class="btn demo-btn"><span>Update</span></button>
+          <h3>Array</h3>
+          <div class="users"></div>
+          <button class="btn demo-btn"><span>Update</span></button>
+          <button class="btn demo-btn"><span>Add</span></button>
 
-          </section>
+
+          <h3>Array item</h3>
+          <div class="user-zero"></div>
+
+
+          <h3>Object</h3>
+          <div class="user"></div>
+          <button class="btn demo-btn"><span>Update</span></button>
+
+
+          <h3>Item from data store</h3>
+          <p>
+            Array: <span data-live-store="users" data-live="[0].firstname"></span><br>
+            Object: <span data-live-store="user" data-live="firstname"></span>
+          </p>
+
 
         </div>
       </section>
@@ -150,7 +160,7 @@ let usersComponent = component(dataArray, 'users', usersTemplate);
 usersComponent[0]['firstname'] = `${usersComponent[0]['firstname']} updated`;
 </code></pre>   
 
-<p>To use data in an already crated store you can with duplicate the element e.g. &lt;div class="users"&gt;&lt;/div&gt;. If you need to present the data differently you can add an effect to the store.</p>
+<p>To use data in an existing store you can with duplicate the element e.g. &lt;div class="users"&gt;&lt;/div&gt;. If you need to present the data differently you can add an effect to the store.</p>
 
 <pre><code class="scroll-shadow-inline" tabindex="0">let userZeroTemplate = (data) => {
   data = data[0];
@@ -158,6 +168,12 @@ usersComponent[0]['firstname'] = `${usersComponent[0]['firstname']} updated`;
 }
 
 effect(usersComponent, 'users', userZeroTemplate, '.user-zero');
+</code></pre>
+
+<p>Alternatively if you just want to update the text of an element with the value from an existing store, add the data-live-store attribute with the store name and the data-live attribute with the needed data.</p>
+
+<pre><code class="scroll-shadow-inline" tabindex="0">&lt;span data-live-store="users" data-live="[0].firstname"&gt;&lt;/span&gt;
+&lt;span data-live-store="user" data-live="firstname"&gt;&lt;/span&gt;
 </code></pre>
 
 

@@ -147,6 +147,6 @@
 
 
 /* Demos */
-.demos .container {
-  --flow-space: var(--layout-space-lg);
+.fullwidth.demos  {
+  --flow-space: var(--layout-space-sm);
 }

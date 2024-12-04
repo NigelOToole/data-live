@@ -1,4 +1,21 @@
 // Data Live
+const attributeSelector = 'live';
+const storeAttributeSelector = 'live-store';
+
+
+function bracketToDot (key) {
+  return key.replace(/'/g, '').replace(/"/g, '').replaceAll('[', '.').replaceAll(']', '.').replaceAll('..', '.').replace(/\.$/g, '').replace(/^\./g, '');;
+};
+
+function getValueFromString (data, key) {
+  return bracketToDot(key)
+  .split('.')
+  .reduce((accumulator, current) => {
+    return accumulator && accumulator?.[current];
+  }, data);
+}
+
+
 const getStore = (key, store) => (store === window) ? window[key] : store;
 
 function get (key, store = window) {
@@ -23,11 +40,20 @@ function emitUpdate (data, name) {
 
 function effect (data, name, template, selector) {
   document.addEventListener(name, (event) => {
-    let elements = document.querySelectorAll(selector);
+    let output = template(event.detail);
+    if (output === undefined) return;
+    
+    if (typeof selector === 'string') {
+      let elements = document.querySelectorAll(selector);
 
-    for (const item of elements) {
-      item.innerHTML = template(event.detail);
-    } 
+      for (const item of elements) {
+        item.innerHTML = output;
+      }    
+    }
+    else {
+      selector.innerHTML = output;
+    }
+ 
   });
 
   emitUpdate(data, name);
@@ -69,21 +95,26 @@ function component (data, name, template, selector = '') {
   let currentStore = store(data, name);
   effect(currentStore, name, template, selector);
 
+  let elements = document.querySelectorAll(`[data-${storeAttributeSelector}=${name}]`);
+  for (const item of elements) {
+    let template = () => getValueFromString(currentStore, item.dataset[attributeSelector]);
+    effect(currentStore, name, template, item);
+  }
+
   return currentStore;
 }
 
 
 function init () {
-  let dataSelector = 'live';
-  let elements = document.querySelectorAll(`[data-${dataSelector}]`);
+  let elements = document.querySelectorAll(`[data-${attributeSelector}]:not([data-${storeAttributeSelector}])`);
 
   for (const item of elements) {
-    const name = item.dataset[dataSelector];
+    const name = item.dataset[attributeSelector];
 
     if (!window[name]) {
       let data = { [name]: item.textContent };
       let template = (data) => data[name];
-      let selector = `[data-${dataSelector}=${name}]`;
+      let selector = `[data-${attributeSelector}=${name}]`;
 
       window[name] = component(data, name, template, selector);
     }

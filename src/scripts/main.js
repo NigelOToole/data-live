@@ -113,7 +113,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     <ul>
         ${ data.map((item) => {
           return `<li>
-            ${ item['firstname']} - ${item['address']['city'] }<br>
+            ${ item['firstname']} ${ item?.['address']?.['city'] ? ` - ${item?.['address']?.['city']}` : '' }<br>
             ${ item['interests'] ? item['interests'].map((item) => item.name).join(', ') : '' }
           </li>`;
         }).join('')}
@@ -128,8 +128,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
   }) 
 
   document.querySelector('.users + .demo-btn + .demo-btn').addEventListener('click', () => {
-    usersComponent.push({"firstname": "Gene", "address": {"city": "Seymour's Bay"}});
-    usersComponent.push({"firstname": "Louise", "address": {"city": "Seymour's Bay"}});
+    usersComponent.push({"firstname": "Gene"});
+    usersComponent.push({"firstname": "Louise"});
   })
 
 
@@ -137,7 +137,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
   // There is an existing store so we just add the effect for this item
   let userZeroTemplate = (data) => {
     data = data[0];
-    return `${ data['firstname']}`;
+    return `${ data?.['firstname']}`;
   }
 
   effect(usersComponent, 'users', userZeroTemplate, '.user-zero');

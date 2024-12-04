@@ -519,8 +519,8 @@ code.scroll-shadow-inline {
   }
 } */
 /* Demos */
-.demos .container {
-  --flow-space: var(--layout-space-lg);
+.fullwidth.demos  {
+  --flow-space: var(--layout-space-sm);
 }
 /* ----- Buttons ----- */
 .btn {
@@ -891,5 +891,3 @@ a .icon, button .icon {
 .header {
   display: none;
 } */
-
-/*# sourceMappingURL=main.css.map */
